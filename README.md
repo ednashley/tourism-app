@@ -1,6 +1,5 @@
-# ANAC – Application de tourisme en France
-
-<p align="center"><img src="assets/accueil.png" width="500" alt="Accueil"></p>  
+<h1 align="center">ANAC – Application de tourisme en France<h1>
+<p align="center"><img src="assets/accueil.gif" width="500" alt="Accueil"></p>  
 
 ---
 
