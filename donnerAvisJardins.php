@@ -31,7 +31,7 @@ $selectionne = null; // ✅ Initialisation de la variable pour éviter les erreu
 
 if ($id) {
     try {
-        $stmt = $db->prepare("SELECT nom FROM jardins WHERE id = :id");
+        $stmt = $db->prepare("SELECT nom FROM liste_des_jardins_remarquables WHERE id = :id");
         $stmt->execute([':id' => $id]);
         $selectionne = $stmt->fetchColumn(); // ✅ Récupère le nom sous forme de texte
 
@@ -47,7 +47,7 @@ if ($id) {
 if ($id) {
     // Vérifier si l'hôtel existe et récupérer ses informations
     try {
-        $stmt = $db->prepare("SELECT  nom FROM jardins WHERE id = :id");
+        $stmt = $db->prepare("SELECT  nom FROM liste_des_jardins_remarquables WHERE id = :id");
         $stmt->execute([':id' => $id]);
         $selectionne = $stmt->fetchColumn();
 
@@ -66,7 +66,7 @@ if ($id) {
 
 // Récupérer les jardins depuis la base de données
 try {
-    $result = $db->query('SELECT nom FROM jardins WHERE nom IS NOT NULL AND TRIM(nom) != ""')->fetchAll(PDO::FETCH_ASSOC);
+    $result = $db->query('SELECT nom FROM liste_des_jardins_remarquables WHERE nom IS NOT NULL AND TRIM(nom) != ""')->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
     $errors[] = "Erreur lors de la récupération des jardins : " . $e->getMessage();
 }
@@ -88,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($errors)) {
         try {
             // Récupérer le code postal du jardin sélectionné
-            $stmt = $db->prepare("SELECT code_postal, id, ville FROM jardins WHERE nom = :nom");
+            $stmt = $db->prepare("SELECT code_postal, id, ville FROM liste_des_jardins_remarquables WHERE nom = :nom");
             $stmt->execute([':nom' => $nom]);
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -119,7 +119,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // Si le jardin n'existe pas
                 $errors[] = "Le jardin sélectionné n'existe pas dans la base de données.";
             }
-            $result = $db->query("SELECT  nom FROM jardins WHERE nom IS NOT NULL AND TRIM(nom) != ''")
+            $result = $db->query("SELECT  nom FROM liste_des_jardins_remarquables WHERE nom IS NOT NULL AND TRIM(nom) != ''")
             ->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
             $errors[] = "Erreur lors de l'enregistrement de l'avis : " . $e->getMessage();
